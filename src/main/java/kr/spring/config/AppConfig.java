@@ -13,7 +13,9 @@ public class AppConfig implements WebMvcConfigurer {
 	public TilesConfigurer tilesConfigurer() {
 		final TilesConfigurer configurer = new TilesConfigurer();
 		//tilesdef.xml의 경로와 파일명 지정
-		configurer.setDefinitions(new String[] {"/WEB-INF/tiles-def/main.xml"});
+		configurer.setDefinitions(new String[] {"/WEB-INF/tiles-def/main.xml",
+												"/WEB-INF/tiles-def/member.xml"
+												});
 		configurer.setCheckRefresh(true);
 		return configurer;
 	}
