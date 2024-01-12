@@ -15,13 +15,15 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void insertMember(MemberVO member) {
-		// TODO Auto-generated method stub
+		//member insert 관련 메서드들을 트랜잭션 단위로 묶어서 처리
+		member.setMem_num(memberMapper.selectMem_num());
+		memberMapper.insertMember(member);
+		memberMapper.insertMember_detail(member);
 	}
 
 	@Override
 	public MemberVO selectCheckMember(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return memberMapper.selectCheckMember(id);
 	}
 
 	@Override
