@@ -4,7 +4,7 @@
 <div class="side-bar">
 	<ul>
 		<li>
-			<img src="${pageContext.request.contextPath}/member/photoView" width="200" height="200" class="my-photo">
+			<img src="${pageContext.request.contextPath}/member/photoView" width="200" height="200" class="my-photo"> 
 			<div class="camera" id="photo_btn">
 				<img src="${pageContext.request.contextPath}/images/camera.png" width="35">
 			</div>
@@ -29,4 +29,6 @@
 		</li>
 	</ul>
 </div>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/member.profile.js"></script>
 <!-- MyPage 메뉴 끝 -->
