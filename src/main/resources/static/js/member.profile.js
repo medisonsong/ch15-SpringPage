@@ -14,7 +14,7 @@ $(function(){
 	$('#upload').change(function(){
 		my_photo = this.files[0]; //선택한 이미지 저장
 		
-		//선택한 파일이 없을 때에
+		//취소 시(선택한 파일이 없을 때에)
 		if(!my_photo){
 			$('.my-photo').attr('src',photo_path); 
 			return;

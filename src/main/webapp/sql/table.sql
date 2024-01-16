@@ -35,6 +35,7 @@ create table spboard(
  hit number(8) default 0 not null,
  reg_date date default sysdate not null,
  modify_date date,
+ filename varchar2(200),
  ip varchar2(40) not null,
  mem_num number not null,
  constraint spboard_pk primary key (board_num),
