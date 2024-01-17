@@ -33,13 +33,12 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public BoardVO selectBoard(int board_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return boardMapper.selectBoard(board_num);
 	}
 
 	@Override
 	public void updateHit(int board_num) {
-		// TODO Auto-generated method stub
+		boardMapper.updateHit(board_num);
 	}
 
 	@Override
@@ -50,6 +49,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void deleteBoard(int board_num) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void deleteFile(int board_num) {
+		boardMapper.deleteFile(board_num);
 	}
 
 }
