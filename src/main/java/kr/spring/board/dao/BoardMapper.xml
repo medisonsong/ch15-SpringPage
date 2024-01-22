@@ -135,8 +135,32 @@
 		#{mem_num})
    </insert>
    
-   
-   
+   <!-- 댓글 목록 -->
+   <select id="selectListReply" parameterType="map" resultType="boardReplyVO">
+   	SELECT
+   	  *
+   	FROM (SELECT 
+   			a.*,
+   			rownum rnum
+   		  FROM (SELECT 
+   		  		   re_num,
+   		  		   <![CDATA[
+   		  		   REPLACE(REPLACE(re_content,'<','&lt;'),'>','&gt;') re_content,
+   		  		   ]]>
+   		  		   re_date,
+   		  		   re_mdate,
+   		  		   board_num,
+   		  		   mem_num,
+   		  		   id,
+   		  		   nick_name
+   		  		FROM spboard_reply 
+   		  		JOIN spmember USING(mem_num)
+   		  		WHERE board_num=#{board_num} 
+   		  		ORDER BY re_num DESC)a)
+   	<![CDATA[
+   	WHERE rnum >= #{start} AND rnum <= #{end}
+   	]]>
+   </select>
    
    
    

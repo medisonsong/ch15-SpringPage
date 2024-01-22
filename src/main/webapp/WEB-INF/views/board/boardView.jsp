@@ -6,6 +6,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/videoAdapter.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/board.fav.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/board.reply.js"></script>
 <div class="page-main">
 	<h2>${board.title}</h2>
 	<ul class="detail-info">
