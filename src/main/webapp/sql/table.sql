@@ -70,8 +70,52 @@ create table spboard_reply(
 create sequence spreply_seq;
 
 
+--채팅방
+create table sptalkroom(
+ talkroom_num number not null,
+ basic_name varchar2(900) not null, --기본 채팅방 이름
+ talkroom_date date default SYSDATE not null,
+ constraint sptalkroom_pk primary key (talkroom_num)
+);
+
+create sequence sptalkroom_seq;
 
 
+--채팅방 멤버 (구성원)
+create table sptalk_member(
+ talkroom_num number not null,
+ mem_num number not null,
+ room_name varchar2(900) not null, --멤버별 채팅방 이름 (방 이름 변경 시 roon_name 사용)
+ member_date date default SYSDATE not null,
+ constraint sptalk_member_fk1 foreign key (talkroom_num) references sptalkroom (talkroom_num),
+ constraint sptalk_member_fk2 foreign key (mem_num) references spmember (mem_num)
+);
+
+
+--채팅(메시지) 테이블
+create table sptalk(
+ talk_num number not null,
+ talkroom_num number not null, --메시지 받는 수신 그룹
+ mem_num number not null, --발신자
+ message varchar2(4000) not null,
+ chat_date date default SYSDATE not null,
+ constraint sptalk_pk primary key (talk_num),
+ constraint sptalk_fk1 foreign key (talkroom_num) references sptalkroom (talkroom_num),
+ constraint sptalk_fk2 foreign key (mem_num) references spmember (mem_num)
+); 
+
+create sequence sptalk_seq;
+
+
+--채팅 메시지 확인 (읽었는지 안 읽었는지 체크하는 테이블)
+create table sptalk_read(
+ talkroom_num number, 
+ talk_num number not null,
+ mem_num number not null,
+ constraint read_fk1 foreign key (talkroom_num) references sptalkroom (talkroom_num),
+ constraint read_fk2 foreign key (talk_num) references sptalk (talk_num),
+ constraint read_fk3 foreign key (mem_num) references spmember (mem_num)
+);
 
 
 

@@ -372,57 +372,62 @@ ul.detail-info li:last-child{ /*마지막 li*/
 }
 /* 댓글 */
 div#reply_div{
-	padding:5px 10px 40px 10px;
-	margin-top:10px;
-	background-color:#eeeeee;
+   padding:5px 10px 40px 10px;
+   margin-top:10px;
+   background-color:#eeeeee;
 }
 form#re_form{
-	width:650px;
-	border:none;
+   width:650px;
+   border:none;
 }
 span.re-title{
-	color:#000;
-	font-size:12pt;
-	line-height:200%;
+   color:#000;
+   font-size:12pt;
+   line-height:200%;
 }
 span.letter-count{
-	font-size:10pt;
-	color:#999;
+   font-size:10pt;
+   color:#999;
 }
 textarea.rep-content{
-	width:90%;
-	height:50px;
-	margin:10px 10px;
+   width:90%;
+   height:50px;
+   margin:10px 10px;
 }
 div#re_first,div#mre_first{
+   float:left;
+   width:70%;
+   padding-left:15px;
+   margin-bottom:10px;
+}
+div#re_second, div#mre_second{
 	float:left;
-	width:70%;
-	padding-left:15px;
+	width:19%;
 	margin-bottom:10px;
 }
 div#loading{
-	width:100px;
-	height:50px;
-	/* 정중앙에 div를 배치하기 위한 설정 */
-	position:absolute;
-	top:50%;
-	left:50%;
-	transform:translate(-50%,-50%);
-	/* 하위요소를 수직으로 쌓을 수 있는 공간 만들기 - flex*/
-	display:flex;
-	/* 세로 정렬 */
-	align-items:center;
-	/* 가로 정렬 */
-	justify-content:center;
+   width:100px;
+   height:50px;
+   /*정중앙에 div를 배치하기 위한 설정*/
+   position:absolute;
+   top:50%;
+   left:50%;
+   transform:translate(-50%,-50%);
+   /*하위 요소를 수직으로 쌓을 수 있는 공간을 만듬*/
+   display:flex;
+   /*세로 정렬*/
+   align-items:center;
+   /*가로 정렬*/
+   justify-content:center;
 }
 div.paging-button{
-	text-align:right;
+   text-align:right;
 }
 div#output{
-	clear:both;
+   clear:both;
 }
-form#mre-form{
-	border:none;
-	margin:5px;
+form#mre_form{
+   border:none;
+   margin:5px;
 }
 
