@@ -1,5 +1,7 @@
 package kr.spring.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,6 +69,13 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateProfile(MemberVO member) {
 		memberMapper.updateProfile(member);
+	}
+
+	/*-----------------채팅 회원 이름 검색----------------------*/
+	
+	@Override
+	public List<MemberVO> selectSearchMember(String id) {
+		return memberMapper.selectSearchMember(id);
 	}
 	
 }

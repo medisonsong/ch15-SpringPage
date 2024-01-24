@@ -1,5 +1,7 @@
 package kr.spring.member.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -33,7 +35,9 @@ public interface MemberMapper {
 	public void updateProfile(MemberVO member);
 	
 	
-	
+	//채팅 회원이름 검색
+	@Select("SELECT mem_num,id,nick_name FROM spmember WHERE auth >= 2 AND id LIKE '%' || #{id} || '%'") //일반회원이상+유사ID검색
+	public List<MemberVO> selectSearchMember(String id);
 	
 	
 	
