@@ -3,9 +3,11 @@ package kr.spring.talk.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.spring.talk.dao.TalkMapper;
 import kr.spring.talk.vo.TalkMemberVO;
 import kr.spring.talk.vo.TalkRoomVO;
 
@@ -13,27 +15,42 @@ import kr.spring.talk.vo.TalkRoomVO;
 @Transactional
 public class TalkServiceImpl implements TalkService{
 	
+	@Autowired
+	private TalkMapper talkMapper;
+	
 	@Override
 	public List<TalkRoomVO> selectTalkRoomList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		return talkMapper.selectTalkRoomList(map);
 	}
 
 	@Override
 	public int selectRowCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		return talkMapper.selectRowCount(map);
 	}
 
 	@Override
 	public void insertTalkRoom(TalkRoomVO talkRoomVO) {
-		// TODO Auto-generated method stub
+		//기본키 생성해서 넣어줌
+		talkRoomVO.setTalkroom_num(talkMapper.selectTalkRoomNum());
+		//채팅방 생성
+		talkMapper.insertTalkRoom(talkRoomVO);
 		
+		//입장 메시지 처리
+		talkRoomVO.getTalkVO().setTalk_num(talkMapper.selectTalkNum()); //message pk생성
+		talkRoomVO.getTalkVO().setTalkroom_num(talkRoomVO.getTalkroom_num()); //위에서 만들어진거 가져오기
+		talkMapper.insertTalk(talkRoomVO.getTalkVO()); 
+		
+		
+		//채팅방 멤버 생성
+		for(int mem_num : talkRoomVO.getMembers()) {
+			talkMapper.insertTalkRoomMember(talkRoomVO.getTalkroom_num(),
+											talkRoomVO.getBasic_name(),
+											mem_num);
+		}
 	}
 
 	@Override
 	public List<TalkMemberVO> selectTalkMember(int talkroom_num) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

@@ -1,5 +1,21 @@
 package kr.spring.talk.vo;
 
-public class TalkMemberVO {
+import java.sql.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+public class TalkMemberVO {
+	private int talkroom_num;
+	private int mem_num;
+	private String room_name;
+	private Date member_date;
+	
+	//추가
+	private String id;
+	
 }
