@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.spring.talk.vo.TalkMemberVO;
 import kr.spring.talk.vo.TalkRoomVO;
+import kr.spring.talk.vo.TalkVO;
 
 public interface TalkService {
 	//채팅방 목록
@@ -15,4 +16,9 @@ public interface TalkService {
 	//채팅 멤버 읽기
 	public List<TalkMemberVO> selectTalkMember(int talkroom_num);
 
+	
+	//채팅 메시지 등록
+	public void insertTalk(TalkVO talkVO);
+	//채팅 메시지 읽기
+	public List<TalkVO> selectTalkDetail(Map<String,Integer> map);
 }
