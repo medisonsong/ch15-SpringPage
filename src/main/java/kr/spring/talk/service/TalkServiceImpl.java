@@ -60,8 +60,15 @@ public class TalkServiceImpl implements TalkService{
 	
 	@Override
 	public void insertTalk(TalkVO talkVO) {
-		// TODO Auto-generated method stub
+		talkVO.setTalk_num(talkMapper.selectTalkNum()); //pk 구하기
+		talkMapper.insertTalk(talkVO);
 		
+		//채팅 멤버가 읽지 않은 채팅 정보 저장
+		for(TalkMemberVO vo : talkMapper.selectTalkMember(talkVO.getTalkroom_num())) {
+			talkMapper.insertTalkRead(talkVO.getTalkroom_num(),
+									  talkVO.getTalk_num(),
+									  vo.getMem_num());
+		}
 	}
 
 	@Override

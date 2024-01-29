@@ -150,8 +150,29 @@ public class TalkController {
 		return "talkDetail";
 	}
 	
-	
-	
+	//채팅 메시지 읽기 (ajax통신)
+	@RequestMapping("/talk/talkDetailAjax")
+	@ResponseBody
+	public Map<String,Object> talkDetailAjax(@RequestParam int talkroom_num,
+											 HttpSession session){
+		
+		Map<String,Object> mapAjax = new HashMap<String,Object>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user==null) { //로그인이 되지 않은 경우
+			mapAjax.put("result", "logout"); 
+		}else {//로그인된 경우
+			Map<String,Integer> map = new HashMap<String,Integer>(); //데이터 담아서 보낼 준비
+			map.put("talkroom_num", talkroom_num);
+			map.put("mem_num", user.getMem_num());
+			List<TalkVO> list = talkService.selectTalkDetail(map);
+			
+			mapAjax.put("result", "success");
+			mapAjax.put("list", list);
+			mapAjax.put("user_num", user.getMem_num());
+		}
+		return mapAjax;
+	}
 	
 	
 	
