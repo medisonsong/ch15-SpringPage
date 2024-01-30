@@ -174,6 +174,35 @@ public class TalkController {
 		return mapAjax;
 	}
 	
+	//채팅 메시지 등록 (전송)
+	@RequestMapping("/talk/writeTalk")
+	@ResponseBody
+	public Map<String,Object> writeTalkAjax(TalkVO vo, HttpSession session){
+		
+		Map<String,Object> mapAjax = new HashMap<String,Object>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user==null) { //로그인x
+			mapAjax.put("result", "logout");
+		}else { //로그인o
+			vo.setMem_num(user.getMem_num()); //로그인한 memnum 알려줌
+			
+			log.debug("<<채팅 메시지 등록 TalkVO>> : " + vo);
+			talkService.insertTalk(vo);
+			
+			mapAjax.put("result", "success");
+		}
+		return mapAjax;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -74,8 +74,8 @@ public class TalkServiceImpl implements TalkService{
 	@Override
 	public List<TalkVO> selectTalkDetail(Map<String, Integer> map) {
 		//읽은 채팅 기록 삭제
-		talkMapper.deleteTalkRead(map);
-		return talkMapper.selectTalkDetail(map);
+		talkMapper.deleteTalkRead(map); //읽은거 지우기
+		return talkMapper.selectTalkDetail(map); //읽지않은거 return
 	}
 	
 }
