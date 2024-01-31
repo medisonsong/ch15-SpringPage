@@ -27,6 +27,7 @@ public interface MemberMapper {
 	public void deleteMember_detail(int mem_num);
 	
 	//자동 로그인
+	@Update("UPDATE spmember_detail SET au_id=#{au_id} WHERE mem_num=#{mem_num}")
 	public void updateAu_id(String au_id, int mem_num);
 	public void selectAu_id(String au_id);
 	public void deleteAu_id(int mem_num);
@@ -38,9 +39,6 @@ public interface MemberMapper {
 	//채팅 회원이름 검색
 	@Select("SELECT mem_num,id,nick_name FROM spmember WHERE auth >= 2 AND id LIKE '%' || #{id} || '%'") //일반회원이상+유사ID검색
 	public List<MemberVO> selectSearchMember(String id);
-	
-	
-	
 	
 	//회원관리 - 관리자
 	

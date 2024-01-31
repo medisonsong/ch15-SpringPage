@@ -486,6 +486,10 @@ ul#search_area li{
 	float:left;
 	width:15%;
 }
+.to-position div.space-message{
+	float:left;
+	width:85%;
+}
 .to-position div.space-clear{
 	clear:both;
 }

@@ -77,5 +77,12 @@ public class TalkServiceImpl implements TalkService{
 		talkMapper.deleteTalkRead(map); //읽은거 지우기
 		return talkMapper.selectTalkDetail(map); //읽지않은거 return
 	}
+
+	
+	//==============================채팅방 이름 변경
+	@Override
+	public void changeRoomName(TalkMemberVO vo) {
+		talkMapper.changeRoomName(vo);
+	}
 	
 }

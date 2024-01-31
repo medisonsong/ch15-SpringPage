@@ -196,14 +196,26 @@ public class TalkController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	/* ============================
+	 * 채팅방 이름 변경
+	 * ============================*/	
+	@RequestMapping("/talk/changeName")
+	@ResponseBody
+	public Map<String,String> changeName(TalkMemberVO vo, HttpSession session){
+		
+		Map<String,String> mapAjax = new HashMap<String,String>();
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		if(user==null) { //로그인이 되지 않은 경우
+			mapAjax.put("result", "logout");
+		}else { //로그인된 경우
+			vo.setMem_num(user.getMem_num());
+			talkService.changeRoomName(vo); //변경
+			
+			mapAjax.put("result", "success");
+		}
+		return mapAjax;
+	}
 	
 	
 	/* ============================

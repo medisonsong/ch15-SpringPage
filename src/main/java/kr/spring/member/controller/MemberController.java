@@ -1,5 +1,8 @@
 package kr.spring.member.controller;
 
+import java.util.UUID;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -95,8 +98,25 @@ public class MemberController {
 			}
 			if(check) {//인증 성공시
 				//=====자동 로그인 체크 시작=====//
-				
-				
+				boolean autoLogin = memberVO.getAuto() != null && memberVO.getAuto().equals("on");
+				if(autoLogin) {
+					//자동로그인 체크를 한 경우 (true)
+					String au_id = member.getAu_id();
+					if(au_id==null) {
+						//자동로그인 체크 식별값 생성
+						au_id = UUID.randomUUID().toString(); //식별값 생성
+						log.debug("<<au_id>> : " + au_id);
+						member.setAu_id(au_id);
+						memberService.updateAu_id(member.getAu_id(), member.getMem_num());
+					}
+					
+					//쿠키를 이용해서 값을 넣고 식별을 하는 때문에 쿠키 저장
+					Cookie auto_cookie = new Cookie("au-log", au_id);
+					auto_cookie.setMaxAge(60*60*24*7); // 쿠키 저장기간 설정 (1주일)
+					auto_cookie.setPath("/"); //하위경로 없이 root밑에 만들어지기 때문에 root밑으로 들어오게 된 경우에만 가능하도록 함
+					
+					response.addCookie(auto_cookie);
+				}
 				//=====자동 로그인 체크 끝=====//
 				
 				//인증 성공, 로그인 처리
@@ -136,8 +156,13 @@ public class MemberController {
 		//로그아웃
 		session.invalidate();
 		//======= 자동로그인 처리 시작(쿠키 삭제) =========//
+		//클라이언트 쿠키 처리
+		Cookie auto_cookie = new Cookie("au-log","");
+		 //덮어씌우면서 기존 쿠키 삭제
+		auto_cookie.setMaxAge(0);
+		auto_cookie.setPath("/");
 		
-		
+		response.addCookie(auto_cookie);
 		//======= 자동로그인 처리 끝(쿠키 삭제) =========//
 		
 		return "redirect:/main/main";
