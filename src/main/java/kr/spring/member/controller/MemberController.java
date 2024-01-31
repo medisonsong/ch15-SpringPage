@@ -110,7 +110,6 @@ public class MemberController {
 						memberService.updateAu_id(member.getAu_id(), member.getMem_num());
 					}
 					
-					
 					//쿠키를 이용해서 값을 넣고 식별을 하는 때문에 쿠키 저장
 					Cookie auto_cookie = new Cookie("au-log", au_id);
 					auto_cookie.setMaxAge(60*60*24*7); // 쿠키 저장기간 설정 (1주일)
