@@ -11,13 +11,23 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+import kr.spring.interceptor.AutoLoginCheckInterceptor;
 import kr.spring.interceptor.LoginCheckInterceptor;
 import kr.spring.websocket.SocketHandler;
 //자바코드 기반 설정 클래스
 @Configuration
 @EnableWebSocket
 public class AppConfig implements WebMvcConfigurer, WebSocketConfigurer{
+	
+	private AutoLoginCheckInterceptor autoLoginCheck;
 	private LoginCheckInterceptor loginCheck;
+	
+	//컨테이너에 등록
+	@Bean
+	public AutoLoginCheckInterceptor interceptor() {
+		autoLoginCheck = new AutoLoginCheckInterceptor();
+		return autoLoginCheck;
+	}
 	
 	@Bean
 	public LoginCheckInterceptor interceptor2() {
@@ -28,6 +38,12 @@ public class AppConfig implements WebMvcConfigurer, WebSocketConfigurer{
 	//intercept 등록
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		//AutoLoginCheckInterceptor 설정
+		registry.addInterceptor(autoLoginCheck)
+				.addPathPatterns("/**")
+				.excludePathPatterns("/member/login")
+				.excludePathPatterns("/member/logout");
+		
 		//LoginCheckInterceptor 설정
 		registry.addInterceptor(loginCheck)
 				.addPathPatterns("/member/myPage")
@@ -38,7 +54,6 @@ public class AppConfig implements WebMvcConfigurer, WebSocketConfigurer{
 				.addPathPatterns("/talk/talkList")
 				.addPathPatterns("/talk/talkDetail");
 	}
-	
 	
 	@Bean
 	public TilesConfigurer tilesConfigurer() {
